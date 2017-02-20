@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name" translatable="false">MyPG</string>
+    <string name="login" translatable="true">LOGIN</string>
+    <string name="profile" translatable="true">Profile</string>
+    <string name="payments" translatable="true">Payments</string>
+    <string name="complaints" translatable="true">Complaints</string>
+    <string name="home" translatable="true">Home</string>
+</resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="30dp"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/imageView_pg_overView_height"
+            android:src="@color/colorPrimary"
+            android:id="@+id/imageView_pg"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize_pg_price_overView"
+            android:layout_alignBottom="@id/imageView_pg"
+            android:padding="@dimen/padding_textView_pg_price_overView"
+            android:background="@xml/background_gradient"
+            android:textColor="@color/colorWhite"
+            />
+
+        <LinearLayout
+            android:layout_below="@id/imageView_pg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorWhite">
+
+            <TextView
+                android:id="@+id/textView_pg_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize_pg_location_overView"
+                android:padding="@dimen/padding_textView_pg_location_overView"
+                android:fontFamily="serif"
+                android:textColor="@android:color/background_dark"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView_pg_overview_facilities"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/recyclerView_facilites_height"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
+

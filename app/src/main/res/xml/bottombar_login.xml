@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_profile"
+        icon="@drawable/ic_login"
+        title="@string/profile"
+        inActiveColor="@color/colorGrey"
+        activeColor="@color/colorWhite"
+        barColorWhenSelected="@color/colorPrimary"/>
+    <tab
+        id="@+id/tab_payments"
+        icon="@drawable/ic_payment"
+        title="@string/payments"
+        inActiveColor="@color/colorGrey"
+        activeColor="@color/colorWhite"
+        barColorWhenSelected="@color/colorGreen"/>
+    <tab
+        id="@+id/tab_complaints"
+        icon="@drawable/ic_complaint"
+        title="@string/complaints"
+        inActiveColor="@color/colorGrey"
+        activeColor="@color/colorWhite"
+        barColorWhenSelected="@color/colorRed"/>
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/ic_home"
+        title="@string/home"
+        inActiveColor="@color/colorGrey"
+        activeColor="#000"
+        barColorWhenSelected="@color/colorWhite" />
+</tabs>
