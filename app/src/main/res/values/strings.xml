@@ -8,5 +8,10 @@
     <string name="facilities" translatable="true">Facilities</string>
     <string name="contact" translatable="true">Contact Information</string>
 
+    <string name="sign_in_cancelled" translatable="true">Sign in Cancelled</string>
+    <string name="no_internet_connection" translatable="true">Uh ho! No Internet Connection</string>
+    <string name="unknown_error" translatable="true">Something went wrong.</string>
+    <string name="sign_in_successful" translatable="true">Hurray! You have signed in.</string>
+
     <string name="price" translatable="false">₹ %1$d</string>
 </resources>
