@@ -1,6 +1,7 @@
 package stfo.com.mypg;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +53,28 @@ public class Fragement_PG_Overview extends Fragment {
                 viewHolder.setPrice(context, model.getPrice());
                 viewHolder.setLocation(model.getLocation());
                 viewHolder.setImage(context, model.getImage());
+            }
+
+            @Override
+            public PG_Overview onCreateViewHolder(ViewGroup parent, int viewType) {
+                PG_Overview viewHolder = super.onCreateViewHolder(parent, viewType);
+                viewHolder.setOnClickListener(new PG_Overview.ClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        PG item = getItem(position);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.KEY_PG_LOCATION, item.getLocation());
+                        bundle.putString(Constants.KEY_PG_FACILITIES, item.getFacilities());
+                        bundle.putLong(Constants.KEY_PG_PRICE, item.getPrice());
+                        bundle.putString(Constants.KEY_PG_PHONE, item.getPhone());
+                        bundle.putString(Constants.KEY_PG_IMAGE, item.getImage());
+                        Intent intent = new Intent(context, DetailActivity.class);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+
+                });
+                return viewHolder;
             }
         };
         recyclerView.setAdapter(mAdapter);

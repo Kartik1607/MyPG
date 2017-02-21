@@ -5,4 +5,14 @@ package stfo.com.mypg;
  */
 public class Constants {
     public static final String CHILD_PG = "PG";
+
+    public static final String KEY_PG_LOCATION = "PG_LOCATION";
+    public static final String KEY_PG_PRICE = "PG_PRICE";
+    public static final String KEY_PG_FACILITIES = "PG_FACILITIES";
+    public static final String KEY_PG_LATITUDE = "PG_LAT";
+    public static final String KEY_PG_LONGITIUDE = "PG_LONG";
+    public static final String KEY_PG_IMAGE = "PG_IMAGE";
+    public static final String KEY_PG_PHONE = "PG_PHONE";
+    public static final String KEY_PG_ADDRESS = "PG_ADDRESS";
+
 }

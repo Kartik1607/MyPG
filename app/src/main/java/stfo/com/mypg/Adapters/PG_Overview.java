@@ -20,7 +20,7 @@ public class PG_Overview extends RecyclerView.ViewHolder{
 
     private ImageView imageView;
     private TextView price, location;
-    private RecyclerView facilities;
+    private PG_Overview.ClickListener mClickListener;
 
 
     public PG_Overview(View itemView) {
@@ -28,7 +28,14 @@ public class PG_Overview extends RecyclerView.ViewHolder{
         price = (TextView) itemView.findViewById(R.id.textView_pg_price);
         location = (TextView) itemView.findViewById(R.id.textView_pg_location);
         imageView = (ImageView) itemView.findViewById(R.id.imageView_pg);
-        //facilities = (RecyclerView) itemView.findViewById(R.id.recyclerView_pg_overview_facilities);
+
+        itemView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                mClickListener.onItemClick(v,getAdapterPosition());
+            }
+        });
     }
 
     public void setPrice(Context context, long p){
@@ -43,4 +50,11 @@ public class PG_Overview extends RecyclerView.ViewHolder{
         Glide.with(context).load(url).centerCrop().into(imageView);
     }
 
+    public interface ClickListener{
+        void onItemClick(View v, int position);
+    }
+
+    public void setOnClickListener(PG_Overview.ClickListener clickListener){
+        mClickListener = clickListener;
+    }
 }

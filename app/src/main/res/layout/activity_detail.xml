@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView_pg"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/imageView_pg_overView_height"
+            />
+
+            <TextView
+                android:id="@+id/textView_pg_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@xml/background_gradient"
+                android:padding="@dimen/padding_textView_pg_price_overView"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textSize_pg_price_overView"
+                tools:text="Rs 6000"
+            />
+
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/textView_pg_location" android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textSize="@dimen/textSize_pg_location_overView"
+            tools:text="Sector 10A"
+        />
+
+        <TextView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="@string/facilities"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/textSize_pg_location_overView"
+            android:textStyle="bold"
+        />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"/>
+
+        <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:padding="@dimen/activity_horizontal_margin"
+                  android:text="@string/contact"
+                  android:textColor="@android:color/black"
+                  android:textSize="@dimen/textSize_pg_location_overView"
+                  android:textStyle="bold"
+        />
+
+        <TextView android:id="@+id/textView_Contact" android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:padding="@dimen/activity_horizontal_margin"
+        />
+    </LinearLayout>
+
+</ScrollView>
+

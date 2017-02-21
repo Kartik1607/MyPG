@@ -5,6 +5,8 @@
     <string name="payments" translatable="true">Payments</string>
     <string name="complaints" translatable="true">Complaints</string>
     <string name="home" translatable="true">Home</string>
+    <string name="facilities" translatable="true">Facilities</string>
+    <string name="contact" translatable="true">Contact Information</string>
 
     <string name="price" translatable="false">₹ %1$d</string>
 </resources>

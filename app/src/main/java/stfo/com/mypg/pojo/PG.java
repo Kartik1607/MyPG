@@ -29,4 +29,24 @@ public class PG {
     public String getPhone() {
         return Phone;
     }
+
+    public void setImage(String image) {
+        Image = image;
+    }
+
+    public void setLocation(String location) {
+        Location = location;
+    }
+
+    public void setFacilities(String facilities) {
+        Facilities = facilities;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
+    }
+
+    public void setPrice(long price) {
+        Price = price;
+    }
 }

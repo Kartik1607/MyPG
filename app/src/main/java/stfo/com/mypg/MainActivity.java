@@ -10,6 +10,8 @@ public class MainActivity extends AppCompatActivity {
 
     //TODO : Strings in strimgs.xml.
     //TODO : Save when screen rotates.
+    //TODO : Content Description
+    //TODO : Activity Animations
 
     FragmentManager fragmentManager;
     Fragment pg_overview_fragment;
