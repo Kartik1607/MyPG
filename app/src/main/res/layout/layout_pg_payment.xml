@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+    >
+
+        <TextView android:id="@+id/textView_payment_status" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_margin="@dimen/activity_vertical_margin"
+                  android:gravity="center_vertical"
+                  android:text="PAID"
+                  android:textColor="@color/colorGreen"
+                  android:textSize="@dimen/textSize_pg_location_overView"
+        />
+
+        <TextView android:id="@+id/textView_payment_date" android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_margin="@dimen/activity_vertical_margin"
+                  android:gravity="center_vertical"
+                  android:text="21-09-2016"
+                  android:textSize="@dimen/textSize_pg_location_overView"
+        />
+
+        <TextView android:id="@+id/textView_payment_amount" android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_margin="@dimen/activity_horizontal_margin"
+                  android:gravity="end|right"
+                  android:text="Rs 5000"
+                  android:textSize="@dimen/textSize_pg_location_overView"
+                  android:textStyle="bold"
+        />
+
+    </LinearLayout>
+
+
+    <View android:layout_width="match_parent" android:layout_height="2dp"
+          android:layout_marginEnd="@dimen/activity_horizontal_margin"
+          android:layout_marginLeft="@dimen/activity_horizontal_margin"
+          android:layout_marginRight="@dimen/activity_horizontal_margin"
+          android:layout_marginStart="@dimen/activity_horizontal_margin"
+          android:background="@android:color/darker_gray"/>
+
+</LinearLayout>

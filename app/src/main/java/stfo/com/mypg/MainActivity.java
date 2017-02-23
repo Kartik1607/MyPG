@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
     private static final int RC_SIGN_IN = 123;
 
     FragmentManager fragmentManager;
-    Fragment pg_overview_fragment, profile_fragment;
+    Fragment pg_overview_fragment, profile_fragment, payment_fragment;
     FirebaseAuth auth;
     View barAnonymous, barLoggedIn, v_activity;
     Fragment currentFragment;
@@ -83,6 +83,12 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
                     }
                     fragmentManager.beginTransaction().replace(R.id.frame, profile_fragment).commit();
                     currentFragment = profile_fragment;
+                }else if(tabId == R.id.tab_payments && currentFragment!=payment_fragment){
+                    if(payment_fragment == null){
+                        payment_fragment = new Fragment_Payment();
+                    }
+                    fragmentManager.beginTransaction().replace(R.id.frame, payment_fragment).commit();
+                    currentFragment = payment_fragment;
                 }
             }
         });

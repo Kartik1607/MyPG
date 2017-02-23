@@ -9,6 +9,7 @@ public class Constants {
 
     public static final String CHILD_PG = "PG";
     public static final String CHILD_USERS = "USERS";
+    public static final String CHILD_PAYMENTS = "Payments";
 
 
     public static final String KEY_PG_LOCATION = "PG_LOCATION";

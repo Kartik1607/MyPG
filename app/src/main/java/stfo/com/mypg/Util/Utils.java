@@ -29,4 +29,20 @@ public class Utils {
         return f;
     }
 
+    public static String getStatus(int id){
+        switch (id){
+            case 0 : return "PAID";
+            case 1 : return "DUE";
+        }
+        return null;
+    }
+
+    public static int getStatusColor(int id){
+        switch (id){
+            case 0 : return R.color.colorGreen;
+            case 1 : return R.color.colorRed;
+        }
+        return R.color.colorGrey;
+    }
+
 }
