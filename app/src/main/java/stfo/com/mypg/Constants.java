@@ -5,7 +5,11 @@ package stfo.com.mypg;
  */
 public class Constants {
 
+    public static boolean IS_SIGNED_IN = false;
+
     public static final String CHILD_PG = "PG";
+    public static final String CHILD_USERS = "USERS";
+
 
     public static final String KEY_PG_LOCATION = "PG_LOCATION";
     public static final String KEY_PG_PRICE = "PG_PRICE";
