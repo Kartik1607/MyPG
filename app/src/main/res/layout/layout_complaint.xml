@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+>
+
+    <FrameLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+    >
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                      android:gravity="center_vertical"
+                      android:layout_gravity="center_vertical"
+        >
+
+            <TextView
+                android:id="@+id/textView_complaint_message" android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:maxWidth="240dp"
+                android:text="This is regarding a refigerator not working"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+            />
+
+            <TextView android:id="@+id/textView_complaint_date" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="21-09-2016"
+
+            />
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/imageView_complaint_Status" android:layout_width="wrap_content"
+            android:layout_gravity="end"
+            android:layout_height="30dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_check"
+        />
+
+    </FrameLayout>
+
+
+
+
+    <View android:layout_width="match_parent" android:layout_height="2dp"
+          android:layout_marginEnd="@dimen/activity_horizontal_margin"
+          android:layout_marginLeft="@dimen/activity_horizontal_margin"
+          android:layout_marginRight="@dimen/activity_horizontal_margin"
+          android:layout_marginStart="@dimen/activity_horizontal_margin"
+          android:layout_marginTop="@dimen/activity_vertical_margin"
+          android:background="@android:color/darker_gray"/>
+
+</LinearLayout>

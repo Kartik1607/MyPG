@@ -14,5 +14,7 @@
     <string name="sign_in_successful" translatable="true">Hurray! You have signed in.</string>
     <string name="sign_out_successful" translatable="true">You have signed out.</string>
 
+    <string name="no_pg" translatable="true">You currently don\'t stay at any of our PG.</string>
+
     <string name="price" translatable="false">₹ %1$d</string>
 </resources>

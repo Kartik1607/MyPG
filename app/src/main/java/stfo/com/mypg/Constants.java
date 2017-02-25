@@ -6,10 +6,13 @@ package stfo.com.mypg;
 public class Constants {
 
     public static boolean IS_SIGNED_IN = false;
+    public static final String NO_PG = "None";
+    public static String CURRENT_PG= "None";
 
     public static final String CHILD_PG = "PG";
     public static final String CHILD_USERS = "USERS";
     public static final String CHILD_PAYMENTS = "Payments";
+    public static final String CHILD_COMPLAINTS = "Complaints";
 
 
     public static final String KEY_PG_LOCATION = "PG_LOCATION";

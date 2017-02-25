@@ -4,7 +4,7 @@ package stfo.com.mypg.pojo;
  * Created by Kartik Sharma on 22/02/17.
  */
 public class User {
-    String name, email, company, currentPG;
+    private String name, email, company, currentPG;
 
     public User() {
     }

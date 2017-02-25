@@ -17,8 +17,11 @@ import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
     private static final int RC_SIGN_IN = 123;
 
     FragmentManager fragmentManager;
-    Fragment pg_overview_fragment, profile_fragment, payment_fragment;
+    Fragment pg_overview_fragment, profile_fragment, payment_fragment, complaint_fragment;
     FirebaseAuth auth;
     View barAnonymous, barLoggedIn, v_activity;
     Fragment currentFragment;
@@ -51,8 +54,8 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
     }
 
     private void setUpListener() {
-        BottomBar barA = (BottomBar) barAnonymous;
-        BottomBar barL = (BottomBar) barLoggedIn;
+        final BottomBar barA = (BottomBar) barAnonymous;
+        final BottomBar barL = (BottomBar) barLoggedIn;
         barA.setOnTabReselectListener(new OnTabReselectListener() {
             @Override
             public void onTabReSelected(@IdRes int tabId) {
@@ -84,11 +87,26 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
                     fragmentManager.beginTransaction().replace(R.id.frame, profile_fragment).commit();
                     currentFragment = profile_fragment;
                 }else if(tabId == R.id.tab_payments && currentFragment!=payment_fragment){
+                    Log.d("MY_APP",Constants.CURRENT_PG + " " + Constants.NO_PG);
+                    if( Constants.NO_PG.equals(Constants.CURRENT_PG)){
+                        showSnackbar(R.string.no_pg);
+                        return;
+                    }
                     if(payment_fragment == null){
                         payment_fragment = new Fragment_Payment();
                     }
                     fragmentManager.beginTransaction().replace(R.id.frame, payment_fragment).commit();
                     currentFragment = payment_fragment;
+                }else if(tabId == R.id.tab_complaints && currentFragment!=complaint_fragment){
+                    if( Constants.NO_PG.equals(Constants.CURRENT_PG)){
+                        showSnackbar(R.string.no_pg);
+                        return;
+                    }
+                    if(complaint_fragment == null){
+                        complaint_fragment = new Fragment_Complaints();
+                    }
+                    fragmentManager.beginTransaction().replace(R.id.frame, complaint_fragment).commit();
+                    currentFragment = complaint_fragment;
                 }
             }
         });
@@ -121,16 +139,34 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == ResultCodes.OK) {
+                Constants.IS_SIGNED_IN = true;
                 barAnonymous.setVisibility(View.GONE);
                 barLoggedIn.setVisibility(View.VISIBLE);
                 ((BottomBar)barLoggedIn).setDefaultTab(R.id.tab_home);
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
-                        .child(Constants.CHILD_USERS).child(
-                                response.getEmail().replace('.',',')
-                        );
+                final DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
+                        .child(Constants.CHILD_USERS);
                 if(auth.getCurrentUser() != null){
-                    FirebaseUser u = auth.getCurrentUser();
-                    ref.setValue(new User(u.getDisplayName(),u.getEmail()," ", " "));
+                    final FirebaseUser u = auth.getCurrentUser();
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.hasChild(u.getEmail().replace(".",","))){
+                                User user = dataSnapshot.child(u.getEmail().replace(".",",")).getValue(User.class);
+                                Constants.CURRENT_PG = user.getCurrentPG();
+                                Log.d("MY_APP","SET NEW PG" + Constants.CURRENT_PG);
+                            }else{
+                                ref.child(u.getEmail().replace(".",",")).setValue(
+                                        new User(u.getDisplayName(),u.getEmail(),"None","None")
+                                );
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
                 showSnackbar(R.string.sign_in_successful);
                 return;
@@ -167,7 +203,10 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
         fragmentManager.beginTransaction()
                 .replace(R.id.frame, pg_overview_fragment).commit();
 
+        payment_fragment = null;
+        profile_fragment = null;
         Constants.IS_SIGNED_IN = false;
+        Constants.CURRENT_PG = Constants.NO_PG;
         showSnackbar(R.string.sign_out_successful);
     }
 }
