@@ -4,14 +4,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +22,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-import stfo.com.mypg.Adapters.ChatAdapter;
 import stfo.com.mypg.Adapters.ComplaintAdapter;
-import stfo.com.mypg.Adapters.PaymentAdapter;
 import stfo.com.mypg.pojo.ChatMessage;
 import stfo.com.mypg.pojo.Complaint;
-import stfo.com.mypg.pojo.Payment;
+import stfo.com.mypg.pojo.ComplaintAdmin;
 
 /**
  * Created by Kartik Sharma on 25/02/17.
@@ -42,11 +39,14 @@ public class Fragment_Complaints extends Fragment {
     private Button button_complaint;
     Context context;
     DatabaseReference mRef;
+    FirebaseRecyclerAdapter<Complaint, ComplaintAdapter> mAdapter;
+    String email;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_complaint, container,false);
+        email = getArguments().getString(Constants.KEY_EMAIL);
+        View v = inflater.inflate(R.layout.fragment_complaint, container, false);
         init(v);
         return v;
     }
@@ -54,26 +54,28 @@ public class Fragment_Complaints extends Fragment {
     private void init(View v) {
         context = getContext();
         button_complaint = (Button) v.findViewById(R.id.button_new_complaint);
+        if(!Constants.isNormalUser)
+            button_complaint.setVisibility(View.GONE);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true);
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mRef = database.getReference().child(Constants.CHILD_COMPLAINTS).child(
-                FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",",")
-        );
 
-        FirebaseRecyclerAdapter<Complaint,ComplaintAdapter> mAdapter = new FirebaseRecyclerAdapter<Complaint,ComplaintAdapter>(Complaint.class,R.layout.layout_complaint, ComplaintAdapter.class,mRef) {
+        mRef = database.getReference().child(Constants.CHILD_COMPLAINTS).child(
+                email
+        );
+        mAdapter = new FirebaseRecyclerAdapter<Complaint, ComplaintAdapter>(Complaint.class, R.layout.layout_complaint, ComplaintAdapter.class, mRef) {
 
 
             @Override
             protected void populateViewHolder(ComplaintAdapter viewHolder, Complaint model, int position) {
-                viewHolder.setData(model.getDate(), model.getMessage(), model.getStatus());
+                viewHolder.setData(model.getDate(), model.getMessage());
             }
 
             @Override
             public ComplaintAdapter onCreateViewHolder(ViewGroup parent, int viewType) {
-                ComplaintAdapter holder =  super.onCreateViewHolder(parent, viewType);
+                ComplaintAdapter holder = super.onCreateViewHolder(parent, viewType);
                 holder.setOnClickListener(new ComplaintAdapter.ClickListener() {
                     @Override
                     public void onItemClick(View v, int position) {
@@ -86,6 +88,7 @@ public class Fragment_Complaints extends Fragment {
                 return holder;
             }
         };
+
         recyclerView.setAdapter(mAdapter);
 
 
@@ -101,7 +104,7 @@ public class Fragment_Complaints extends Fragment {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(input.getText().length() == 0)
+                        if (input.getText().length() == 0)
                             return;
 
                         String message = input.getText().toString();
@@ -110,7 +113,6 @@ public class Fragment_Complaints extends Fragment {
                         ref.setValue(
                                 new Complaint(
                                         ref.getKey(),
-                                        0L,
                                         getDate(),
                                         message
                                 )
@@ -139,7 +141,7 @@ public class Fragment_Complaints extends Fragment {
         });
     }
 
-    private String getDate(){
+    private String getDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String format = simpleDateFormat.format(new Date());
         return format;

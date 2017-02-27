@@ -28,10 +28,13 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.Arrays;
 
+import stfo.com.mypg.Adapters.Complaint_Admin_Adapter;
 import stfo.com.mypg.Util.Utils;
 import stfo.com.mypg.pojo.User;
 
-public class MainActivity extends AppCompatActivity implements Fragment_profile.LogoutListener{
+public class MainActivity extends AppCompatActivity implements Fragment_profile.LogoutListener,
+        Complaint_Admin_Adapter.OnAdminComplaintSelected
+{
 
     //TODO : Strings in strimgs.xml.
     //TODO : Save when screen rotates.
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
     private static final int RC_SIGN_IN = 123;
 
     FragmentManager fragmentManager;
-    Fragment pg_overview_fragment, profile_fragment, payment_fragment, complaint_fragment;
+    Fragment pg_overview_fragment, profile_fragment, payment_fragment, complaint_fragment, complaint_admin;
     FirebaseAuth auth;
     View barAnonymous, barLoggedIn, v_activity;
     Fragment currentFragment;
@@ -99,6 +102,14 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
                     fragmentManager.beginTransaction().replace(R.id.frame, payment_fragment).commit();
                     currentFragment = payment_fragment;
                 }else if(tabId == R.id.tab_complaints && currentFragment!=complaint_fragment){
+                    if(!Constants.isNormalUser){
+                        if(complaint_admin == null){
+                            complaint_admin = new Fragment_admin_Complaint();
+                        }
+                        fragmentManager.beginTransaction().replace(R.id.frame,complaint_admin)
+                                .commit();
+                        return;
+                    }
                     if( Constants.NO_PG.equals(Constants.CURRENT_PG)){
                         showSnackbar(R.string.no_pg);
                         return;
@@ -106,6 +117,9 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
                     if(complaint_fragment == null){
                         complaint_fragment = new Fragment_Complaints();
                     }
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.KEY_EMAIL, Utils.CURRENT_EMAIL);
+                    complaint_fragment.setArguments(bundle);
                     fragmentManager.beginTransaction().replace(R.id.frame, complaint_fragment).commit();
                     currentFragment = complaint_fragment;
                 }
@@ -234,5 +248,15 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
         Constants.IS_SIGNED_IN = false;
         Constants.CURRENT_PG = Constants.NO_PG;
         showSnackbar(R.string.sign_out_successful);
+    }
+
+    @Override
+    public void ComplaintSelectedForUser(String userEmail) {
+        if(complaint_fragment == null)
+            complaint_fragment = new Fragment_Complaints();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.KEY_EMAIL, userEmail);
+        complaint_fragment.setArguments(bundle);
+        fragmentManager.beginTransaction().replace(R.id.frame, complaint_fragment).commit();
     }
 }

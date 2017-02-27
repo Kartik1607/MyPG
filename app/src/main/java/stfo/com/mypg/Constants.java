@@ -29,5 +29,6 @@ public class Constants {
 
 
     public static final String KEY_CHAT = "CHAT_ID";
+    public static final String KEY_EMAIL = "CHAT_EMAIL";
 
 }

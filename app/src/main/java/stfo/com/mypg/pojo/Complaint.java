@@ -5,15 +5,13 @@ package stfo.com.mypg.pojo;
  */
 public class Complaint {
     private String ComplaintID;
-    private Long Status;
     private String Date,Message;
 
     public Complaint() {
     }
 
-    public Complaint(String complaintID, Long status, String date, String message) {
+    public Complaint(String complaintID, String date, String message) {
         ComplaintID = complaintID;
-        Status = status;
         Date = date;
         Message = message;
     }
@@ -24,14 +22,6 @@ public class Complaint {
 
     public void setComplaintID(String complaintID) {
         ComplaintID = complaintID;
-    }
-
-    public Long getStatus() {
-        return Status;
-    }
-
-    public void setStatus(Long status) {
-        Status = status;
     }
 
     public String getDate() {

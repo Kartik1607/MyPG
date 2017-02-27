@@ -33,20 +33,11 @@
 
             <TextView android:id="@+id/textView_complaint_date" android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="21-09-2016"
 
             />
         </LinearLayout>
 
 
-
-        <ImageView
-            android:id="@+id/imageView_complaint_Status" android:layout_width="wrap_content"
-            android:layout_gravity="end"
-            android:layout_height="30dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_check"
-        />
 
     </FrameLayout>
 
