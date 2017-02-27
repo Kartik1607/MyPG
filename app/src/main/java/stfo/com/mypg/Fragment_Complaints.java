@@ -1,6 +1,7 @@
 package stfo.com.mypg;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import stfo.com.mypg.Adapters.ChatAdapter;
 import stfo.com.mypg.Adapters.ComplaintAdapter;
 import stfo.com.mypg.Adapters.PaymentAdapter;
 import stfo.com.mypg.pojo.Complaint;
@@ -31,7 +33,7 @@ public class Fragment_Complaints extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_pg_overview, container,false);
+        View v = inflater.inflate(R.layout.fragment_complaint, container,false);
         init(v);
         return v;
     }
@@ -52,7 +54,7 @@ public class Fragment_Complaints extends Fragment {
 
             @Override
             protected void populateViewHolder(ComplaintAdapter viewHolder, Complaint model, int position) {
-                viewHolder.setData(model.getDate(), model.getLastMessage(), model.getStatus());
+                viewHolder.setData(model.getDate(), model.getMessage(), model.getStatus());
             }
 
             @Override
@@ -62,7 +64,9 @@ public class Fragment_Complaints extends Fragment {
                     @Override
                     public void onItemClick(View v, int position) {
                         Complaint item = getItem(position);
-                        /* Start Chat Activity Here */
+                        Intent intent = new Intent(context, ChatActivity.class);
+                        intent.putExtra(Constants.KEY_CHAT, item.getComplaintID().toString());
+                        startActivity(intent);
                     }
                 });
                 return holder;

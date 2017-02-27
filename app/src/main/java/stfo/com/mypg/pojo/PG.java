@@ -4,10 +4,35 @@ package stfo.com.mypg.pojo;
  * Created by Kartik Sharma on 20/02/17.
  */
 public class PG {
-    private String Image, Location, Facilities ,Phone;
+    private String Image, Location, Facilities ,Phone, Address;
+    private Double Latitude,Longitude;
     private long Price;
 
     public PG() {
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public Double getLatitude() {
+        return Latitude;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public void setLatitude(Double latitude) {
+        Latitude = latitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        Longitude = longitude;
+    }
+
+    public Double getLongitude() {
+        return Longitude;
     }
 
     public String getImage() {

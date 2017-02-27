@@ -68,6 +68,9 @@ public class Fragement_PG_Overview extends Fragment {
                         bundle.putLong(Constants.KEY_PG_PRICE, item.getPrice());
                         bundle.putString(Constants.KEY_PG_PHONE, item.getPhone());
                         bundle.putString(Constants.KEY_PG_IMAGE, item.getImage());
+                        bundle.putDouble(Constants.KEY_PG_LATITUDE, item.getLatitude());
+                        bundle.putDouble(Constants.KEY_PG_LONGITIUDE, item.getLongitude());
+                        bundle.putString(Constants.KEY_PG_ADDRESS, item.getAddress());
                         Intent intent = new Intent(context, DetailActivity.class);
                         intent.putExtras(bundle);
                         startActivity(intent);

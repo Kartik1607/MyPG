@@ -5,16 +5,16 @@ package stfo.com.mypg.pojo;
  */
 public class Complaint {
     private Long ComplaintID,Status;
-    private String Date,LastMessage;
+    private String Date,Message;
 
     public Complaint() {
     }
 
-    public Complaint(Long complaintID, Long status, String date, String lastMessage) {
+    public Complaint(Long complaintID, Long status, String date, String message) {
         ComplaintID = complaintID;
         Status = status;
         Date = date;
-        LastMessage = lastMessage;
+        Message = message;
     }
 
     public Long getComplaintID() {
@@ -41,11 +41,11 @@ public class Complaint {
         Date = date;
     }
 
-    public String getLastMessage() {
-        return LastMessage;
+    public String getMessage() {
+        return Message;
     }
 
-    public void setLastMessage(String lastMessage) {
-        LastMessage = lastMessage;
+    public void setLastMessage(String Message) {
+        this.Message = Message;
     }
 }

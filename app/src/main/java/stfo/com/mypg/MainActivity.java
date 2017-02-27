@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
         auth = FirebaseAuth.getInstance();
         if(auth.getCurrentUser() != null){
             Constants.IS_SIGNED_IN = true;
+            loadPG();
             barAnonymous.setVisibility(View.GONE);
             barLoggedIn.setVisibility(View.VISIBLE);
         }else{
@@ -143,31 +144,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
                 barAnonymous.setVisibility(View.GONE);
                 barLoggedIn.setVisibility(View.VISIBLE);
                 ((BottomBar)barLoggedIn).setDefaultTab(R.id.tab_home);
-                final DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
-                        .child(Constants.CHILD_USERS);
-                if(auth.getCurrentUser() != null){
-                    final FirebaseUser u = auth.getCurrentUser();
-                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.hasChild(u.getEmail().replace(".",","))){
-                                User user = dataSnapshot.child(u.getEmail().replace(".",",")).getValue(User.class);
-                                Constants.CURRENT_PG = user.getCurrentPG();
-                                Log.d("MY_APP","SET NEW PG" + Constants.CURRENT_PG);
-                            }else{
-                                ref.child(u.getEmail().replace(".",",")).setValue(
-                                        new User(u.getDisplayName(),u.getEmail(),"None","None")
-                                );
-                            }
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
+                loadPG();
                 showSnackbar(R.string.sign_in_successful);
                 return;
             } else {
@@ -191,6 +168,52 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
         }
     }
 
+    private void loadPG(){
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.CHILD_USERS);
+        final DatabaseReference refAdmin = FirebaseDatabase.getInstance().getReference()
+                .child(Constants.CHILD_ADMIN);
+        if(auth.getCurrentUser() != null){
+            final FirebaseUser u = auth.getCurrentUser();
+
+
+            refAdmin.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.hasChild(u.getEmail().replace(".",","))){
+                        Constants.isNormalUser = false;
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.hasChild(u.getEmail().replace(".",","))){
+                        User user = dataSnapshot.child(u.getEmail().replace(".",",")).getValue(User.class);
+                        Constants.CURRENT_PG = user.getCurrentPG();
+                    }else{
+                        ref.child(u.getEmail().replace(".",",")).setValue(
+                                new User(u.getDisplayName(),u.getEmail(),"None","None")
+                        );
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+
+    }
 
     private void showSnackbar(int id){
         Snackbar.make(v_activity,id,Snackbar.LENGTH_LONG).show();
