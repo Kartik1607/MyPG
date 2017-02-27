@@ -4,14 +4,20 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 
+import java.util.ArrayList;
+
 import stfo.com.mypg.Constants;
 import stfo.com.mypg.R;
 import stfo.com.mypg.pojo.Facility;
+import stfo.com.mypg.pojo.Payment;
 
 /**
  * Created by Kartik Sharma on 21/02/17.
  */
 public class Utils {
+
+    public static String CURRENT_EMAIL = "";
+    public static ArrayList<Payment> paymentArrayList;
 
     public static Facility getFacilitywithId(int id){
         Facility f = null;

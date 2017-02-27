@@ -28,6 +28,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.Arrays;
 
+import stfo.com.mypg.Util.Utils;
 import stfo.com.mypg.pojo.User;
 
 public class MainActivity extends AppCompatActivity implements Fragment_profile.LogoutListener{
@@ -175,13 +176,15 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
                 .child(Constants.CHILD_ADMIN);
         if(auth.getCurrentUser() != null){
             final FirebaseUser u = auth.getCurrentUser();
-
+            Utils.CURRENT_EMAIL = u.getEmail().replace(".",",");
 
             refAdmin.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(dataSnapshot.hasChild(u.getEmail().replace(".",","))){
                         Constants.isNormalUser = false;
+                    }else{
+                        Constants.isNormalUser = true;
                     }
                 }
 

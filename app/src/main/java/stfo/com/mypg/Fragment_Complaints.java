@@ -1,24 +1,35 @@
 package stfo.com.mypg;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import stfo.com.mypg.Adapters.ChatAdapter;
 import stfo.com.mypg.Adapters.ComplaintAdapter;
 import stfo.com.mypg.Adapters.PaymentAdapter;
+import stfo.com.mypg.pojo.ChatMessage;
 import stfo.com.mypg.pojo.Complaint;
 import stfo.com.mypg.pojo.Payment;
 
@@ -28,7 +39,9 @@ import stfo.com.mypg.pojo.Payment;
 public class Fragment_Complaints extends Fragment {
 
     private RecyclerView recyclerView;
+    private Button button_complaint;
     Context context;
+    DatabaseReference mRef;
 
     @Nullable
     @Override
@@ -40,12 +53,13 @@ public class Fragment_Complaints extends Fragment {
 
     private void init(View v) {
         context = getContext();
+        button_complaint = (Button) v.findViewById(R.id.button_new_complaint);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, true);
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mRef = database.getReference().child(Constants.CHILD_COMPLAINTS).child(
+        mRef = database.getReference().child(Constants.CHILD_COMPLAINTS).child(
                 FirebaseAuth.getInstance().getCurrentUser().getEmail().replace(".",",")
         );
 
@@ -65,7 +79,7 @@ public class Fragment_Complaints extends Fragment {
                     public void onItemClick(View v, int position) {
                         Complaint item = getItem(position);
                         Intent intent = new Intent(context, ChatActivity.class);
-                        intent.putExtra(Constants.KEY_CHAT, item.getComplaintID().toString());
+                        intent.putExtra(Constants.KEY_CHAT, item.getComplaintID());
                         startActivity(intent);
                     }
                 });
@@ -74,5 +88,60 @@ public class Fragment_Complaints extends Fragment {
         };
         recyclerView.setAdapter(mAdapter);
 
+
+        button_complaint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(R.string.new_complaint_title);
+                builder.setMessage(R.string.new_complaint_message);
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(input.getText().length() == 0)
+                            return;
+
+                        String message = input.getText().toString();
+
+                        DatabaseReference ref = mRef.push();
+                        ref.setValue(
+                                new Complaint(
+                                        ref.getKey(),
+                                        0L,
+                                        getDate(),
+                                        message
+                                )
+                        );
+
+                        DatabaseReference refChat = FirebaseDatabase.getInstance().getReference()
+                                .child(Constants.CHILD_CHATS).child(ref.getKey());
+
+                        refChat.push().setValue(new ChatMessage(
+                                "Regarding " + message,
+                                Constants.isNormalUser
+                        ));
+
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+    }
+
+    private String getDate(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String format = simpleDateFormat.format(new Date());
+        return format;
     }
 }

@@ -4,24 +4,25 @@ package stfo.com.mypg.pojo;
  * Created by Kartik Sharma on 25/02/17.
  */
 public class Complaint {
-    private Long ComplaintID,Status;
+    private String ComplaintID;
+    private Long Status;
     private String Date,Message;
 
     public Complaint() {
     }
 
-    public Complaint(Long complaintID, Long status, String date, String message) {
+    public Complaint(String complaintID, Long status, String date, String message) {
         ComplaintID = complaintID;
         Status = status;
         Date = date;
         Message = message;
     }
 
-    public Long getComplaintID() {
+    public String getComplaintID() {
         return ComplaintID;
     }
 
-    public void setComplaintID(Long complaintID) {
+    public void setComplaintID(String complaintID) {
         ComplaintID = complaintID;
     }
 
@@ -45,7 +46,7 @@ public class Complaint {
         return Message;
     }
 
-    public void setLastMessage(String Message) {
+    public void setMessage(String Message) {
         this.Message = Message;
     }
 }

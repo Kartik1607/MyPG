@@ -17,5 +17,8 @@
     <string name="no_pg" translatable="true">You currently don\'t stay at any of our PG.</string>
     <string name="no_maps" translatable="true">Google Maps is not installed</string>
 
+    <string name="new_complaint_title" translatable="true">New Complaint</string>
+    <string name="new_complaint_message" translatable="true">What is the complaint for?</string>
+
     <string name="price" translatable="false">₹ %1$d</string>
 </resources>
