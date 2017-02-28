@@ -1,8 +1,6 @@
 package stfo.com.mypg.Widget;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -38,7 +36,6 @@ public class WidgetFactory implements RemoteViewsService.RemoteViewsFactory {
     }
 
 
-
     @Override
     public void onDestroy() {
 
@@ -52,15 +49,15 @@ public class WidgetFactory implements RemoteViewsService.RemoteViewsFactory {
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews view = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-        if (payments!= null) {
+        if (payments != null) {
             Payment data = payments.get(position);
             view.setTextViewText(R.id.textView_payment_status,
-                    Utils.getStatus( data.getStatus().intValue()));
+                    Utils.getStatus(data.getStatus().intValue()));
             view.setTextColor(R.id.textView_payment_status, Utils.getStatusColor(data.getStatus().intValue()));
             view.setTextViewText(R.id.textView_payment_date,
                     data.getDate());
             view.setTextViewText(R.id.textView_payment_amount,
-                    context.getString(R.string.price,data.getAmount()));
+                    context.getString(R.string.price, data.getAmount()));
         }
         return view;
     }

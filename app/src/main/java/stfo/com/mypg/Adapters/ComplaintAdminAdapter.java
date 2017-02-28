@@ -14,9 +14,9 @@ import stfo.com.mypg.R;
 /**
  * Created by Kartik Sharma on 27/02/17.
  */
-public class Complaint_Admin_Adapter extends RecyclerView.Adapter<Complaint_Admin_Adapter.ViewHolder> {
+public class ComplaintAdminAdapter extends RecyclerView.Adapter<ComplaintAdminAdapter.ViewHolder> {
 
-    public interface OnAdminComplaintSelected{
+    public interface OnAdminComplaintSelected {
         void ComplaintSelectedForUser(String userEmail);
     }
 
@@ -24,20 +24,20 @@ public class Complaint_Admin_Adapter extends RecyclerView.Adapter<Complaint_Admi
     private LayoutInflater layoutInflater;
     private ArrayList<String> data;
 
-    public Complaint_Admin_Adapter(Context context, ArrayList<String> data) {
+    public ComplaintAdminAdapter(Context context, ArrayList<String> data) {
         this.context = context;
         this.data = data;
         layoutInflater = LayoutInflater.from(context);
     }
 
-    public void setData(ArrayList<String> data){
+    public void setData(ArrayList<String> data) {
         this.data = data;
         notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(layoutInflater.inflate(R.layout.layout_complaint,parent,false));
+        return new ViewHolder(layoutInflater.inflate(R.layout.layout_complaint, parent, false));
     }
 
     @Override
@@ -50,11 +50,11 @@ public class Complaint_Admin_Adapter extends RecyclerView.Adapter<Complaint_Admi
         return data.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tv_User;
 
-        public void bind(int position){
+        public void bind(int position) {
             tv_User.setText(data.get(position));
         }
 
@@ -63,7 +63,7 @@ public class Complaint_Admin_Adapter extends RecyclerView.Adapter<Complaint_Admi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(context instanceof OnAdminComplaintSelected){
+                    if (context instanceof OnAdminComplaintSelected) {
                         ((OnAdminComplaintSelected) context).ComplaintSelectedForUser(data.get(getAdapterPosition()));
                     }
                 }

@@ -19,16 +19,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import stfo.com.mypg.Adapters.Complaint_Admin_Adapter;
+import stfo.com.mypg.Adapters.ComplaintAdminAdapter;
 
 /**
  * Created by Kartik Sharma on 27/02/17.
  */
-public class Fragment_admin_Complaint extends Fragment {
+public class FragmentAdminComplaint extends Fragment {
 
     private RecyclerView recyclerView;
-    private Button button_complaint;
-    Complaint_Admin_Adapter adapter;
+    private Button buttonComplaint;
+    ComplaintAdminAdapter adapter;
     Context context;
     DatabaseReference mRef;
     ArrayList<String> data;
@@ -41,12 +41,12 @@ public class Fragment_admin_Complaint extends Fragment {
         return v;
     }
 
-    private void init(View v){
+    private void init(View v) {
         data = new ArrayList<>();
-        adapter = new Complaint_Admin_Adapter(getActivity(), data);
+        adapter = new ComplaintAdminAdapter(getActivity(), data);
         context = getContext();
-        button_complaint = (Button) v.findViewById(R.id.button_new_complaint);
-        button_complaint.setVisibility(View.GONE);
+        buttonComplaint = (Button) v.findViewById(R.id.button_new_complaint);
+        buttonComplaint.setVisibility(View.GONE);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -57,7 +57,7 @@ public class Fragment_admin_Complaint extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 data = new ArrayList<>();
-                for(DataSnapshot c : dataSnapshot.getChildren()){
+                for (DataSnapshot c : dataSnapshot.getChildren()) {
                     data.add(c.getKey());
                 }
                 adapter.setData(data);

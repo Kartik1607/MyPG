@@ -11,7 +11,7 @@
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:background="@color/colorRed"
             android:padding="@dimen/activity_horizontal_margin"
-            android:text="New Complaint"
+            android:text="@string/new_complaint"
             android:textColor="@android:color/white"
             android:id="@+id/button_new_complaint"
     />

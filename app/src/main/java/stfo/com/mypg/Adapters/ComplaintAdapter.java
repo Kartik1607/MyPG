@@ -1,9 +1,7 @@
 package stfo.com.mypg.Adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import stfo.com.mypg.R;
@@ -24,22 +22,22 @@ public class ComplaintAdapter extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClickListener.onItemClick(v,getAdapterPosition());
+                mClickListener.onItemClick(v, getAdapterPosition());
             }
         });
 
     }
 
-    public interface ClickListener{
+    public interface ClickListener {
         void onItemClick(View v, int position);
     }
 
-    public void setData(String date, String message){
+    public void setData(String date, String message) {
         tv_date.setText(date);
         tv_message.setText(message);
     }
 
-    public void setOnClickListener(ComplaintAdapter.ClickListener clickListener){
+    public void setOnClickListener(ComplaintAdapter.ClickListener clickListener) {
         mClickListener = clickListener;
     }
 }

@@ -5,7 +5,7 @@ package stfo.com.mypg.pojo;
  */
 public class Complaint {
     private String ComplaintID;
-    private String Date,Message;
+    private String Date, Message;
 
     public Complaint() {
     }

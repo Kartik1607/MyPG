@@ -33,14 +33,14 @@ public class NotificationService extends Service {
     public void onCreate() {
         database = FirebaseDatabase.getInstance();
         DatabaseReference mRef;
-        mRef = database.getReference().child(Constants.CHILD_PAYMENTS).child(Utils.CURRENT_EMAIL.replace(".",","));
+        mRef = database.getReference().child(Constants.CHILD_PAYMENTS).child(Utils.CURRENT_EMAIL.replace(".", ","));
 
 
         mRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Payment payment = dataSnapshot.getValue(Payment.class);
-                if(payment.getStatus() == 1){ //PAYMENT IS DUE
+                if (payment.getStatus() == 1) { //PAYMENT IS DUE
                     showUserNotification(payment);
                 }
             }
@@ -67,7 +67,7 @@ public class NotificationService extends Service {
         });
     }
 
-    public void showUserNotification(Payment payment){
+    public void showUserNotification(Payment payment) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
         mBuilder.setSmallIcon(R.drawable.ic_payment);
         mBuilder.setContentTitle(getString(R.string.payment_due));

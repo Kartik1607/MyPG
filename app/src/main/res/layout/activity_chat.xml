@@ -18,6 +18,7 @@
     <EditText android:id="@+id/editText_message" android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_toLeftOf="@id/button_send"
+              android:layout_toStartOf="@id/button_send"
               android:layout_alignParentBottom="true"
 
     />

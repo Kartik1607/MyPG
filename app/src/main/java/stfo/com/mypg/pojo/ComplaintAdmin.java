@@ -8,7 +8,7 @@ public class ComplaintAdmin extends Complaint {
     String userEmail;
 
     public ComplaintAdmin(String complaintID, String date, String message, String userEmail) {
-        super(complaintID,  date, message);
+        super(complaintID, date, message);
         this.userEmail = userEmail;
     }
 

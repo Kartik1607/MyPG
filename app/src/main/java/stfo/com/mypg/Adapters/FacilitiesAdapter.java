@@ -45,7 +45,7 @@ public class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.Fa
         return data.size();
     }
 
-    class FacilityViewHolder extends RecyclerView.ViewHolder{
+    class FacilityViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
         TextView textView;
@@ -57,7 +57,7 @@ public class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.Fa
             textView = (TextView) itemView.findViewById(R.id.textView_Facility_Name);
         }
 
-        void bind(int position){
+        void bind(int position) {
             Facility current = data.get(position);
             textView.setText(current.getName());
             Glide.with(context).load(current.getImage()).fitCenter().into(imageView);

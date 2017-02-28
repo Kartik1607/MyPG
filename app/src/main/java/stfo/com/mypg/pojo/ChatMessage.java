@@ -10,7 +10,7 @@ public class ChatMessage {
     public ChatMessage() {
     }
 
-    public ChatMessage(String message,  Boolean user) {
+    public ChatMessage(String message, Boolean user) {
         Message = message;
         User = user;
     }

@@ -71,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/activity_horizontal_margin"
-                    android:hint="Name"
+                    android:hint="@string/name"
                     android:padding="@dimen/activity_horizontal_margin"
                 />
 
@@ -86,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/activity_horizontal_margin"
-                    android:hint="Work Place"
+                    android:hint="@string/work_place"
                     android:padding="@dimen/activity_horizontal_margin"
                 />
 
@@ -101,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/activity_horizontal_margin"
-                    android:hint="Email"
+                    android:hint="@string/email"
                     android:padding="@dimen/activity_horizontal_margin"
                 />
 
@@ -116,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/activity_horizontal_margin"
-                    android:hint="Current PG"
+                    android:hint="@string/Current_PG"
                     android:padding="@dimen/activity_horizontal_margin"
                 />
 
@@ -125,7 +125,7 @@
             <Button
                 android:layout_width="250dp" android:layout_height="wrap_content"
                 android:padding="@dimen/activity_horizontal_margin"
-                android:text="SAVE"
+                android:text="@string/Save"
                 android:background="@color/colorGreen"
                 android:textColor="@android:color/white"
                 android:layout_gravity="center"
@@ -141,7 +141,7 @@
             <Button
                 android:layout_width="250dp" android:layout_height="wrap_content"
                 android:padding="@dimen/activity_horizontal_margin"
-                android:text="LOG OUT"
+                android:text="@string/Logout"
                 android:background="@color/colorRed"
                 android:textColor="@android:color/white"
                 android:layout_gravity="center"

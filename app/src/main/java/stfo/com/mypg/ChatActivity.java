@@ -1,18 +1,14 @@
 package stfo.com.mypg;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.transition.Fade;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -24,10 +20,10 @@ import stfo.com.mypg.pojo.ChatMessage;
 /**
  * Created by Kartik Sharma on 27/02/17.
  */
-public class ChatActivity extends AppCompatActivity implements View.OnClickListener{
+public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
-    private ImageButton button_send;
+    private ImageButton buttonSend;
     private Context context;
     private EditText editText;
 
@@ -39,7 +35,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.xml.activity_open_translate,R.xml.activity_close_scale);
+        overridePendingTransition(R.xml.activity_open_translate, R.xml.activity_close_scale);
         setContentView(R.layout.activity_chat);
         init();
     }
@@ -48,7 +44,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         context = this;
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        button_send = (ImageButton) findViewById(R.id.button_send);
+        buttonSend = (ImageButton) findViewById(R.id.button_send);
 
         editText = (EditText) findViewById(R.id.editText_message);
 
@@ -69,21 +65,21 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 
-        button_send.setOnClickListener(this);
+        buttonSend.setOnClickListener(this);
 
         recyclerView.requestFocus();
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.button_send :
+        switch (v.getId()) {
+            case R.id.button_send:
 
-                if(editText.getText().length() != 0) {
+                if (editText.getText().length() != 0) {
                     ref.push().setValue(new ChatMessage(
                             editText.getText().toString(), Constants.isNormalUser
                     ));
-                    recyclerView.scrollToPosition(recyclerAdapter.getItemCount() );
+                    recyclerView.scrollToPosition(recyclerAdapter.getItemCount());
                 }
                 editText.setText("");
 
@@ -95,7 +91,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-        overridePendingTransition(R.xml.activity_open_scale,R.xml.activity_close_translate);
+        overridePendingTransition(R.xml.activity_open_scale, R.xml.activity_close_translate);
     }
 
 }

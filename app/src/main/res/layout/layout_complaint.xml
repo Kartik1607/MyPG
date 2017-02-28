@@ -26,7 +26,6 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:maxWidth="240dp"
-                android:text="This is regarding a refigerator not working"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
             />

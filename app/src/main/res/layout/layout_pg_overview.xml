@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/imageView_pg_overView_height"
             android:src="@color/colorPrimary"
+            android:contentDescription="@string/content_pg_image"
         />
 
         <TextView

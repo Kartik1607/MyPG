@@ -28,4 +28,17 @@
     <string name="content_pg_image" translatable="false">PG Image</string>
     <string name="content_map" translatable="true">Open in Maps</string>
     <string name="content_backdrop" translatable="true">Backdrop Image</string>
+
+    <string name="new_complaint" translatable="true">New Complaint</string>
+    <string name="name" translatable="true">Name</string>
+    <string name="work_place" translatable="true">Work Place</string>
+    <string name="email" translatable="true">Email</string>
+    <string name="Current_PG" translatable="true">Current PG</string>
+    <string name="Save" translatable="true">SAVE</string>
+    <string name="Logout" translatable="true">LOGOUT</string>
+    <string name="new_complaint_default" translatable="true">Regarding %1$s</string>
+
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">CANCEL</string>
+
 </resources>

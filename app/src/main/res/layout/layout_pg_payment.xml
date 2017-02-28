@@ -29,7 +29,7 @@
                   android:layout_height="wrap_content"
                   android:layout_gravity="center_vertical"
                   android:layout_margin="@dimen/activity_horizontal_margin"
-                  android:gravity="end|right"
+                  android:gravity="end"
                   android:textSize="@dimen/textSize_pg_location_overView"
                   android:textStyle="bold"
         />

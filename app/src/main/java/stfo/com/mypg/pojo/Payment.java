@@ -5,9 +5,10 @@ package stfo.com.mypg.pojo;
  */
 public class Payment {
     private String Date;
-    private Long Status,Amount;
+    private Long Status, Amount;
 
-    public Payment(){}
+    public Payment() {
+    }
 
     public String getDate() {
         return Date;

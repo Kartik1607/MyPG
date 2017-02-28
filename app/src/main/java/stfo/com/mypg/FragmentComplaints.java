@@ -10,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.transition.Slide;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import stfo.com.mypg.Adapters.ComplaintAdapter;
 import stfo.com.mypg.pojo.ChatMessage;
@@ -31,7 +31,7 @@ import stfo.com.mypg.pojo.Complaint;
 /**
  * Created by Kartik Sharma on 25/02/17.
  */
-public class Fragment_Complaints extends Fragment {
+public class FragmentComplaints extends Fragment {
 
     private RecyclerView recyclerView;
     private Button button_complaint;
@@ -52,7 +52,7 @@ public class Fragment_Complaints extends Fragment {
     private void init(View v) {
         context = getContext();
         button_complaint = (Button) v.findViewById(R.id.button_new_complaint);
-        if(!Constants.isNormalUser)
+        if (!Constants.isNormalUser)
             button_complaint.setVisibility(View.GONE);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true);
@@ -99,7 +99,7 @@ public class Fragment_Complaints extends Fragment {
                 final EditText input = new EditText(context);
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (input.getText().length() == 0)
@@ -120,14 +120,14 @@ public class Fragment_Complaints extends Fragment {
                                 .child(Constants.CHILD_CHATS).child(ref.getKey());
 
                         refChat.push().setValue(new ChatMessage(
-                                "Regarding " + message,
+                                getString(R.string.new_complaint_default, message),
                                 Constants.isNormalUser
                         ));
 
 
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(getString(R.string.button_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -140,7 +140,7 @@ public class Fragment_Complaints extends Fragment {
     }
 
     private String getDate() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String format = simpleDateFormat.format(new Date());
         return format;
     }

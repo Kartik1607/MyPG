@@ -4,10 +4,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'Kartik Sharma'
-            keyPassword 'kitrakdartik'
-            storeFile file('/Users/nivedita/Keystore.jks')
-            storePassword 'myPassword'
+            keyAlias 'Udacity'
+            keyPassword 'helloworld'
+            storeFile file("$rootProject.projectDir/Keystore.jks")
+            storePassword 'helloworld'
         }
     }
     compileSdkVersion 24

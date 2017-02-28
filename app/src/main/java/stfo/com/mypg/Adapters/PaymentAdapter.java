@@ -14,20 +14,20 @@ import stfo.com.mypg.Util.Utils;
  */
 public class PaymentAdapter extends RecyclerView.ViewHolder {
 
-    private TextView tv_amount, tv_status, tv_date;
+    private TextView tvAmount, tvStatus, tvDate;
 
     public PaymentAdapter(View itemView) {
         super(itemView);
-        tv_amount = (TextView) itemView.findViewById(R.id.textView_payment_amount);
-        tv_status = (TextView) itemView.findViewById(R.id.textView_payment_status);
-        tv_date = (TextView) itemView.findViewById(R.id.textView_payment_date);
+        tvAmount = (TextView) itemView.findViewById(R.id.textView_payment_amount);
+        tvStatus = (TextView) itemView.findViewById(R.id.textView_payment_status);
+        tvDate = (TextView) itemView.findViewById(R.id.textView_payment_date);
     }
 
-    public void setData(Long amount, int status, String date, Context context){
-        tv_amount.setText(context.getString(R.string.price,amount));
-        tv_status.setTextColor(ContextCompat.getColor(context,Utils.getStatusColor(status)));
-        tv_status.setText(Utils.getStatus(status));
-        tv_date.setText(date);
+    public void setData(Long amount, int status, String date, Context context) {
+        tvAmount.setText(context.getString(R.string.price, amount));
+        tvStatus.setTextColor(ContextCompat.getColor(context, Utils.getStatusColor(status)));
+        tvStatus.setText(Utils.getStatus(status));
+        tvDate.setText(date);
     }
 }
 

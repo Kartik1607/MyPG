@@ -4,8 +4,8 @@ package stfo.com.mypg.pojo;
  * Created by Kartik Sharma on 20/02/17.
  */
 public class PG {
-    private String Image, Location, Facilities ,Phone, Address;
-    private Double Latitude,Longitude;
+    private String Image, Location, Facilities, Phone, Address;
+    private Double Latitude, Longitude;
     private long Price;
 
     public PG() {

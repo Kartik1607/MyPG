@@ -5,12 +5,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import stfo.com.mypg.R;
 
@@ -29,13 +25,13 @@ public class ChatAdapter extends RecyclerView.ViewHolder {
 
     }
 
-    public void bindData(Context context, String text, boolean isUser){
-        if(isUser){
-            textView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorPrimaryDark));
-            itemView.setGravity(Gravity.LEFT);
-        }else{
-            textView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorGreen));
-            itemView.setGravity(Gravity.RIGHT);
+    public void bindData(Context context, String text, boolean isUser) {
+        if (isUser) {
+            textView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+            itemView.setGravity(Gravity.START);
+        } else {
+            textView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGreen));
+            itemView.setGravity(Gravity.END);
         }
 
         textView.setText(text);
