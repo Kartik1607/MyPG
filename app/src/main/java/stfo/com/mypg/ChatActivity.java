@@ -32,7 +32,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     private FirebaseRecyclerAdapter<ChatMessage, ChatAdapter> recyclerAdapter;
     private FirebaseDatabase database;
-    private DatabaseReference ref, refComplaint;
+    private DatabaseReference ref;
 
 
     @Override

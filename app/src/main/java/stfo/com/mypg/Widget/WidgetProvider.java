@@ -43,9 +43,10 @@ public class WidgetProvider extends AppWidgetProvider {
                 RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
                 Intent listIntent = new Intent(context, WidgetService.class);
                 views.setRemoteAdapter(R.id.listView_widget, listIntent);
-                Intent startActivityIntent = new Intent(context, MainActivity.class);
-                PendingIntent startActivityPendingIntent = PendingIntent.getActivity(context, 0, startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                views.setPendingIntentTemplate(R.id.listView_widget, startActivityPendingIntent);
+//                Intent startActivityIntent = new Intent(context, MainActivity.class);
+//                PendingIntent startActivityPendingIntent = PendingIntent.getActivity(context, 0, startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                views.setPendingIntentTemplate(R.id.listView_widget, startActivityPendingIntent);
+//
                 appWidgetManager.updateAppWidget(i, views);
                 appWidgetManager.notifyAppWidgetViewDataChanged(i, R.id.listView_widget);
             }

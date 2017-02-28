@@ -37,6 +37,8 @@
             android:name=".Widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <service android:name=".NotificationService"/>
+
     </application>
 
 </manifest>

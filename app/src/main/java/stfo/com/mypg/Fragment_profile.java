@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.method.KeyListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,10 +47,36 @@ public class Fragment_profile extends Fragment {
     private FloatingActionButton editButton;
     private Button button_save, button_logout;
     private EditText editText_Name, editText_Company, editText_PG, editText_Email;
+    private static String NAME, COMPANY;
+    private static boolean EDITABLE;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        EDITABLE = button_save.getVisibility() == View.VISIBLE;
+        NAME = editText_Name.getText().toString();
+        COMPANY = editText_Company.getText().toString();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setEditable(false);
+        if(EDITABLE){
+            button_save.setVisibility(View.VISIBLE);
+            editText_Name.requestFocus();
+            setEditable(true);
+            editText_Name.setText(NAME);
+            editText_Company.setText(COMPANY);
+        }else{
+            loadUserDetails();
+            setEditable(false);
+        }
     }
 
     @Nullable
@@ -110,9 +137,6 @@ public class Fragment_profile extends Fragment {
 
 
         fUser = FirebaseAuth.getInstance().getCurrentUser();
-        loadUserDetails();
-        setEditable(false);
-
         imageView = (ImageView)v.findViewById(R.id.imageView_profile);
         Glide.with(getContext()).load(R.drawable.backdrop).centerCrop().into(imageView);
     }

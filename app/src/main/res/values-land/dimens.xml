@@ -1,0 +1,20 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- OVERVIEW LAYOUT DIMENS -->
+
+    <dimen name="imageView_pg_overView_height">100dp</dimen>
+
+    <dimen name="recyclerView_facilites_height">60dp</dimen>
+
+    <dimen name="textSize_pg_location_overView">20sp</dimen>
+    <dimen name="textSize_pg_price_overView">40sp</dimen>
+
+    <dimen name="padding_textView_pg_location_overView">15dp</dimen>
+    <dimen name="padding_textView_pg_price_overView">20dp</dimen>
+
+
+    <!-- END -->
+</resources>

@@ -17,18 +17,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import stfo.com.mypg.Adapters.ComplaintAdapter;
 import stfo.com.mypg.pojo.ChatMessage;
 import stfo.com.mypg.pojo.Complaint;
-import stfo.com.mypg.pojo.ComplaintAdmin;
 
 /**
  * Created by Kartik Sharma on 25/02/17.

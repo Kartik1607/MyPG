@@ -1,6 +1,7 @@
 package stfo.com.mypg.Widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -60,7 +61,6 @@ public class WidgetFactory implements RemoteViewsService.RemoteViewsFactory {
                     data.getDate());
             view.setTextViewText(R.id.textView_payment_amount,
                     context.getString(R.string.price,data.getAmount()));
-            Log.d("MY_APP",data.getDate());
         }
         return view;
     }

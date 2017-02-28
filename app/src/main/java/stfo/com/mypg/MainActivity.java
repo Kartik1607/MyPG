@@ -43,23 +43,47 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
 
     private static final int RC_SIGN_IN = 123;
 
+    private final String TAG_PROFILE = "TP", TAG_PAYMENT = "TPAY", TAG_COMPLAINT = "TC", TAG_OVERVIEW = "TO";
     FragmentManager fragmentManager;
     Fragment pg_overview_fragment, profile_fragment, payment_fragment, complaint_fragment, complaint_admin;
     FirebaseAuth auth;
-    View barAnonymous, barLoggedIn, v_activity;
-    Fragment currentFragment;
+    View v_activity;
+    BottomBar barAnonymous, barLoggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
-        setUpListener();
+        if(savedInstanceState == null){
+            init();
+            fragmentManager.beginTransaction()
+                    .add(R.id.frame, pg_overview_fragment)
+                    .commit();
+            setUpListener();
+        }else{
+            init();
+            pg_overview_fragment = fragmentManager.findFragmentByTag(TAG_OVERVIEW);
+            profile_fragment = fragmentManager.findFragmentByTag(TAG_PROFILE);
+            payment_fragment = fragmentManager.findFragmentByTag(TAG_PAYMENT);
+            complaint_fragment = fragmentManager.findFragmentByTag(TAG_COMPLAINT);
+            setUpListener();
+        }
+
+        if(auth.getCurrentUser() != null){
+            Constants.IS_SIGNED_IN = true;
+            loadPG();
+            barAnonymous.setVisibility(View.GONE);
+            barLoggedIn.setVisibility(View.VISIBLE);
+        }else{
+            barLoggedIn.setVisibility(View.GONE);
+            barAnonymous.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void setUpListener() {
-        final BottomBar barA = (BottomBar) barAnonymous;
-        final BottomBar barL = (BottomBar) barLoggedIn;
+        final BottomBar barA =  barAnonymous;
+        final BottomBar barL =  barLoggedIn;
         barA.setOnTabReselectListener(new OnTabReselectListener() {
             @Override
             public void onTabReSelected(@IdRes int tabId) {
@@ -78,20 +102,17 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
         barL.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
-                if(tabId == R.id.tab_home && currentFragment!=pg_overview_fragment){
+                if(tabId == R.id.tab_home ){
                     if(pg_overview_fragment == null){
                         pg_overview_fragment = new Fragement_PG_Overview();
                     }
-                    fragmentManager.beginTransaction().replace(R.id.frame, pg_overview_fragment).commit();
-                    currentFragment = pg_overview_fragment;
-                }else if(tabId == R.id.tab_profile && currentFragment!=profile_fragment){
+                    fragmentManager.beginTransaction().replace(R.id.frame, pg_overview_fragment, TAG_OVERVIEW).commit();
+                }else if(tabId == R.id.tab_profile){
                     if(profile_fragment == null){
                         profile_fragment = new Fragment_profile();
                     }
-                    fragmentManager.beginTransaction().replace(R.id.frame, profile_fragment).commit();
-                    currentFragment = profile_fragment;
-                }else if(tabId == R.id.tab_payments && currentFragment!=payment_fragment){
-                    Log.d("MY_APP",Constants.CURRENT_PG + " " + Constants.NO_PG);
+                    fragmentManager.beginTransaction().replace(R.id.frame, profile_fragment, TAG_PROFILE).commit();
+                }else if(tabId == R.id.tab_payments ){
                     if( Constants.NO_PG.equals(Constants.CURRENT_PG)){
                         showSnackbar(R.string.no_pg);
                         return;
@@ -99,9 +120,8 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
                     if(payment_fragment == null){
                         payment_fragment = new Fragment_Payment();
                     }
-                    fragmentManager.beginTransaction().replace(R.id.frame, payment_fragment).commit();
-                    currentFragment = payment_fragment;
-                }else if(tabId == R.id.tab_complaints && currentFragment!=complaint_fragment){
+                    fragmentManager.beginTransaction().replace(R.id.frame, payment_fragment, TAG_PAYMENT).commit();
+                }else if(tabId == R.id.tab_complaints ){
                     if(!Constants.isNormalUser){
                         if(complaint_admin == null){
                             complaint_admin = new Fragment_admin_Complaint();
@@ -120,8 +140,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
                     Bundle bundle = new Bundle();
                     bundle.putString(Constants.KEY_EMAIL, Utils.CURRENT_EMAIL);
                     complaint_fragment.setArguments(bundle);
-                    fragmentManager.beginTransaction().replace(R.id.frame, complaint_fragment).commit();
-                    currentFragment = complaint_fragment;
+                    fragmentManager.beginTransaction().replace(R.id.frame, complaint_fragment, TAG_COMPLAINT).commit();
                 }
             }
         });
@@ -129,24 +148,11 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
 
     private void init(){
         v_activity = findViewById(R.id.view_main_activity);
-        barAnonymous = findViewById(R.id.bottomBarAnonymous);
-        barLoggedIn = findViewById(R.id.bottomBarLoggedIn);
+        barAnonymous = (BottomBar) findViewById(R.id.bottomBarAnonymous);
+        barLoggedIn = (BottomBar) findViewById(R.id.bottomBarLoggedIn);
         pg_overview_fragment = new Fragement_PG_Overview();
         fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(R.id.frame, pg_overview_fragment)
-                .commit();
-        currentFragment = pg_overview_fragment;
         auth = FirebaseAuth.getInstance();
-        if(auth.getCurrentUser() != null){
-            Constants.IS_SIGNED_IN = true;
-            loadPG();
-            barAnonymous.setVisibility(View.GONE);
-            barLoggedIn.setVisibility(View.VISIBLE);
-        }else{
-            barLoggedIn.setVisibility(View.GONE);
-            barAnonymous.setVisibility(View.VISIBLE);
-        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -184,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
     }
 
     private void loadPG(){
+        startService(new Intent(this, NotificationService.class));
         final DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
                 .child(Constants.CHILD_USERS);
         final DatabaseReference refAdmin = FirebaseDatabase.getInstance().getReference()
@@ -241,12 +248,13 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
         barLoggedIn.setVisibility(View.GONE);
         barAnonymous.setVisibility(View.VISIBLE);
         fragmentManager.beginTransaction()
-                .replace(R.id.frame, pg_overview_fragment).commit();
+                .replace(R.id.frame, pg_overview_fragment,TAG_OVERVIEW).commit();
 
         payment_fragment = null;
         profile_fragment = null;
         Constants.IS_SIGNED_IN = false;
         Constants.CURRENT_PG = Constants.NO_PG;
+        stopService(new Intent(this, NotificationService.class));
         showSnackbar(R.string.sign_out_successful);
     }
 
@@ -257,6 +265,6 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
         Bundle bundle = new Bundle();
         bundle.putString(Constants.KEY_EMAIL, userEmail);
         complaint_fragment.setArguments(bundle);
-        fragmentManager.beginTransaction().replace(R.id.frame, complaint_fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.frame, complaint_fragment,TAG_COMPLAINT).commit();
     }
 }

@@ -20,5 +20,7 @@
     <string name="new_complaint_title" translatable="true">New Complaint</string>
     <string name="new_complaint_message" translatable="true">What is the complaint for?</string>
 
+    <string name="payment_due">Payment due.</string>
+    <string name="payment_amount">Payment is due for ₹ %1$d on %2$s</string>
     <string name="price" translatable="false">₹ %1$d</string>
 </resources>
