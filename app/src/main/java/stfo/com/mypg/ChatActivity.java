@@ -1,11 +1,13 @@
 package stfo.com.mypg;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +27,6 @@ import stfo.com.mypg.pojo.ChatMessage;
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener{
 
     private RecyclerView recyclerView;
-    private Button button_resolved;
     private ImageButton button_send;
     private Context context;
     private EditText editText;
@@ -38,6 +39,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.xml.activity_open_translate,R.xml.activity_close_scale);
         setContentView(R.layout.activity_chat);
         init();
     }
@@ -46,7 +48,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         context = this;
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        button_resolved = (Button) findViewById(R.id.button_complaint_resolved);
         button_send = (ImageButton) findViewById(R.id.button_send);
 
         editText = (EditText) findViewById(R.id.editText_message);
@@ -69,11 +70,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setAdapter(recyclerAdapter);
 
         button_send.setOnClickListener(this);
-        button_resolved.setOnClickListener(this);
-
-
-        if(!Constants.isNormalUser)
-            button_resolved.setVisibility(View.VISIBLE);
 
         recyclerView.requestFocus();
     }
@@ -92,9 +88,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 editText.setText("");
 
                 break;
-            case R.id.button_complaint_resolved :
-                break;
-
         }
     }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.xml.activity_open_scale,R.xml.activity_close_translate);
+    }
+
 }

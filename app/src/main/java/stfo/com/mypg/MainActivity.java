@@ -1,12 +1,14 @@
 package stfo.com.mypg;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -17,6 +19,7 @@ import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.xml.activity_open_translate,R.xml.activity_close_scale);
         setContentView(R.layout.activity_main);
         if(savedInstanceState == null){
             init();
@@ -222,8 +226,12 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
                         User user = dataSnapshot.child(u.getEmail().replace(".",",")).getValue(User.class);
                         Constants.CURRENT_PG = user.getCurrentPG();
                     }else{
+                        String displayName = u.getDisplayName();
+
+                        //BUG IN FIREBASE, displayname returns null.
+
                         ref.child(u.getEmail().replace(".",",")).setValue(
-                                new User(u.getDisplayName(),u.getEmail(),"None","None")
+                                new User(displayName,u.getEmail(),"None","None")
                         );
                     }
 
@@ -267,4 +275,12 @@ public class MainActivity extends AppCompatActivity implements Fragment_profile.
         complaint_fragment.setArguments(bundle);
         fragmentManager.beginTransaction().replace(R.id.frame, complaint_fragment,TAG_COMPLAINT).commit();
     }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.xml.activity_open_scale,R.xml.activity_close_translate);
+    }
+
 }

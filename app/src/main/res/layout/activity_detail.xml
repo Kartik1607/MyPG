@@ -17,6 +17,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:contentDescription="@string/content_pg_image"
                 android:id="@+id/imageView_pg"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/imageView_pg_overView_height"
@@ -83,6 +84,7 @@
                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
                    android:src="@drawable/goolge_map_icon"
                    android:text="View on Map"
+                   android:contentDescription="@string/content_map"
         />
     </LinearLayout>
 

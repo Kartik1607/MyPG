@@ -146,6 +146,8 @@ public class Fragment_profile extends Fragment {
             editText_Name.setKeyListener((KeyListener) editText_Name.getTag());
             editText_Company.setKeyListener((KeyListener) editText_Company.getTag());
         }else{
+            if(editText_Name.getKeyListener() == null)
+                return;
             editText_Name.setTag(editText_Name.getKeyListener());
             editText_Name.setKeyListener(null);
 

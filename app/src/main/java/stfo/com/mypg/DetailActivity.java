@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,6 +48,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.xml.activity_open_translate,R.xml.activity_close_scale);
         setContentView(R.layout.activity_detail);
         init();
     }
@@ -143,5 +145,12 @@ public class DetailActivity extends AppCompatActivity {
             );
         }
         return f;
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.xml.activity_open_scale,R.xml.activity_close_translate);
     }
 }
