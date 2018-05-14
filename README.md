@@ -5,6 +5,7 @@ MyPG is the final Capstone project under Udacity nanodegree. The application can
 <p align="center">
 <img src="http://i.imgur.com/HwPpdmR.png" width="50%"/>
 </p>
+
 ## Features
 
 - View all available PG's.
